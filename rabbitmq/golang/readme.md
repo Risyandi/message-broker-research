@@ -1,8 +1,12 @@
 # Simple process messages broker using rabbitMQ and Go-lang
 1. Open your the terminal (command line, powershell, etc.)
-2. Open the terminal first for run the file `sender.go`
-3. Open the terminal second for run the file `receiver.go`
-4. Running both file together with running the command in the terminal :
+2. Installing the package of `amqp` using command  
+    ```go
+    go get github.com/rabbitmq/amqp091-go
+    ```
+3. Open the terminal first for run the file `sender.go`
+4. Open the terminal second for run the file `receiver.go`
+5. Running both file together with running the command in the terminal :
     - fist terminal
     ```go
     go run sender.go
