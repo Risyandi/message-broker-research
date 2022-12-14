@@ -28,25 +28,27 @@ func main() {
 
 	// declare queue to send
 	q, err := ch.QueueDeclare(
-		"hello",
-		false,
-		false,
-		false,
-		false,
-		nil,
+		"hello", // name
+		false,   //  durable
+		false,   // delete when unused
+		false,   // exclusive
+		false,   // no-wait
+		nil,     // arguments
 	)
 	failOnError(err, "Failed to declare queue")
 
+	// set timeout to cancel
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
+	// publish or send messages to receiver
 	body := "Hello world"
 	err = ch.PublishWithContext(
 		ctx,
-		"",
-		q.Name,
-		false,
-		false,
+		"",     // exchange
+		q.Name, // routing key
+		false,  // mandatory
+		false,  // immediate
 		amqp.Publishing{
 			ContentType: "text/plain",
 			Body:        []byte(body),
