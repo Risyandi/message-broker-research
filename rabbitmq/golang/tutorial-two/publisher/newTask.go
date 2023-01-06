@@ -56,9 +56,9 @@ func main() {
 	body := bodyFrom(os.Args)
 
 	err = ch.PublishWithContext(ctx,
-		"",
-		q.Name,
-		false,
+		"",     // exchange
+		q.Name, //routing key
+		false,  // mandatory
 		false,
 		amqp.Publishing{
 			DeliveryMode: amqp.Persistent,
