@@ -42,7 +42,7 @@ func main() {
 	// declare queue to send
 	q, err := ch.QueueDeclare(
 		"hello", // name
-		false,   //  durable
+		false,   // durable
 		false,   // delete when unused
 		false,   // exclusive
 		false,   // no-wait
@@ -50,14 +50,26 @@ func main() {
 	)
 	failOnError(err, "Failed to declare queue")
 
+	// declare exchange
+	err = ch.ExchangeDeclare(
+		"logs",   // name
+		"fanout", // type
+		true,     // durable
+		false,    // auto-detected
+		false,    // internal
+		false,    // no-wait
+		nil,      // arguments
+	)
+	failOnError(err, "Failed to declare an exchange")
+
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	body := bodyFrom(os.Args)
 
 	err = ch.PublishWithContext(ctx,
-		"",     // exchange
-		q.Name, //routing key
+		"logs", // exchange name
+		q.Name, // routing key
 		false,  // mandatory
 		false,
 		amqp.Publishing{
