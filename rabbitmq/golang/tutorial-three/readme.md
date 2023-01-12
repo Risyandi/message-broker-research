@@ -62,13 +62,13 @@ To illustrate the pattern, we're going to build a simple logging system. It will
 - **Putting it all together**  
     ![putting it all together](./rabbitmq_puttingalltogether.PNG)  
     If you want to save logs to a file, just open a console and type:  
-    `go run receive_logs.go > logs_from_rabbit.log`
+    `go run receiveLog.go > logsFromRabbit.log`
     
     If you wish to see the logs on your screen, spawn a new terminal and run:  
-    `go run receive_logs.go`
+    `go run receiveLog.go`
     
     And of course, to emit logs type:  
-    `go run emit_log.go`  
+    `go run emitLog.go`  
 
     Using *`rabbitmqctl list_bindings`* you can verify that the code actually creates bindings and queues as we want.
 
